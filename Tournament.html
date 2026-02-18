@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kuba's Tournament</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #f5f2ed;
+  font-family: 'DM Sans', sans-serif;
+  min-height: 100vh;
+  overflow-x: auto;
+}
+
+header {
+  padding: 48px 40px 36px;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.header-left h1 {
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: -1px;
+  color: #111;
+  line-height: 1;
+}
+.header-left p {
+  font-size: 14px;
+  color: #888;
+  margin-top: 6px;
+  font-family: 'DM Mono', monospace;
+}
+
+.prize {
+  background: #111;
+  color: #f5f2ed;
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-family: 'DM Mono', monospace;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.bracket-wrap {
+  padding: 40px;
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+  min-width: max-content;
+}
+
+.round {
+  display: flex;
+  flex-direction: column;
+}
+
+.round-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #aaa;
+  padding: 0 12px 16px;
+}
+
+.matches {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: space-around;
+}
+
+.match-wrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+}
+
+.match {
+  background: #fff;
+  border: 1px solid #e0ddd8;
+  border-radius: 6px;
+  width: 180px;
+  overflow: hidden;
+}
+
+.player {
+  display: flex;
+  align-items: center;
+  padding: 9px 12px;
+  gap: 8px;
+  border-bottom: 1px solid #f0ede8;
+  user-select: none;
+}
+.player:last-child { border-bottom: none; }
+
+.player.winner { background: #f0faf4; }
+.player.winner .pname { color: #111; font-weight: 700; }
+.player.winner .pscore { color: #22a855; font-weight: 700; }
+
+.player.loser { opacity: 0.35; }
+.player.loser .pname { text-decoration: line-through; }
+
+.pnum {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: #ccc;
+  width: 14px;
+  flex-shrink: 0;
+}
+
+.pname {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  outline: none;
+}
+.pname[contenteditable="true"] {
+  cursor: text;
+  border-bottom: 1px dashed #ccc;
+}
+.pname[contenteditable="true"]:focus { color: #111; border-bottom-color: #22a855; }
+.pname.tbd { color: #bbb; font-style: italic; font-weight: 400; font-size: 12px; }
+
+.pscore {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  color: #ccc;
+  width: 18px;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 3px;
+  padding: 2px;
+  transition: background 0.1s;
+}
+.pscore:hover { background: #f0ede8; color: #888; }
+
+.conn {
+  width: 28px;
+  display: flex;
+  flex-direction: column;
+  padding-top: 31px;
+}
+.conn-pair {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+.conn-pair svg {
+  width: 28px;
+  flex: 1;
+  height: 100%;
+  overflow: visible;
+}
+
+.champ-col {
+  display: flex;
+  flex-direction: column;
+  min-width: 200px;
+}
+.champ-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #aaa;
+  padding: 0 12px 16px;
+}
+.champ-body {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+}
+.champ-card {
+  border: 1.5px solid #111;
+  border-radius: 6px;
+  padding: 20px 24px;
+  text-align: center;
+  width: 160px;
+}
+.champ-card .trophy { font-size: 28px; margin-bottom: 10px; }
+.champ-card .cname { font-size: 16px; font-weight: 700; color: #111; margin-bottom: 4px; }
+.champ-card .cprize { font-family: 'DM Mono', monospace; font-size: 12px; color: #22a855; }
+.champ-card .ctbd { font-size: 13px; color: #bbb; font-style: italic; }
+
+footer {
+  padding: 24px 40px;
+  border-top: 1px solid #ddd;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: #bbb;
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-left">
+    <h1>Kuba's Tournament</h1>
+    <p>16 players · 4 rounds · hosted by kuba</p>
+  </div>
+  <div class="prize">R$ 2,000 ROBUX</div>
+</header>
+
+<div id="bracket" class="bracket-wrap"></div>
+
+<footer>
+  <span>kuba's tournament</span>
+  <span>click names to edit · click score to set winner</span>
+</footer>
+
+<script>
+const DEFAULTS = Array.from({length:16}, (_,i) => `Player ${i+1}`);
+const ROUNDS = ["Round of 16","Quarterfinals","Semifinals","Final"];
+
+let state = { players: [...DEFAULTS], matches: {} };
+
+function mid(r,m){ return `r${r}m${m}`; }
+
+function getPlayers(r,m){
+  if(r===0) return [state.players[m*2], state.players[m*2+1]];
+  return [winner(r-1,m*2), winner(r-1,m*2+1)];
+}
+
+function winner(r,m){
+  const s = state.matches[mid(r,m)];
+  if(!s || s.w==null) return null;
+  return getPlayers(r,m)[s.w];
+}
+
+function toggleWinner(r,m,pi){
+  const id = mid(r,m);
+  if(!state.matches[id]) state.matches[id]={w:null};
+  state.matches[id].w = state.matches[id].w===pi ? null : pi;
+  save(); render();
+}
+
+function setName(i,val){
+  state.players[i] = val||DEFAULTS[i];
+  save(); render();
+}
+
+function save(){ try{localStorage.setItem('kt',JSON.stringify(state));}catch(e){} }
+function load(){ try{const s=localStorage.getItem('kt');if(s)state=JSON.parse(s);}catch(e){} }
+
+function render(){
+  const wrap = document.getElementById('bracket');
+  wrap.innerHTML = '';
+  const N=4;
+
+  for(let r=0;r<N;r++){
+    const nm = 16/Math.pow(2,r+1);
+    const col = document.createElement('div');
+    col.className='round';
+
+    const lbl=document.createElement('div');
+    lbl.className='round-label';
+    lbl.textContent=ROUNDS[r];
+    col.appendChild(lbl);
+
+    const mlist=document.createElement('div');
+    mlist.className='matches';
+
+    for(let m=0;m<nm;m++){
+      const id=mid(r,m);
+      const [p1,p2]=getPlayers(r,m);
+      const ms=state.matches[id]||{w:null};
+
+      const mwrap=document.createElement('div');
+      mwrap.className='match-wrap';
+      const card=document.createElement('div');
+      card.className='match';
+
+      [p1,p2].forEach((pname,pi)=>{
+        const row=document.createElement('div');
+        row.className='player';
+        if(ms.w===pi) row.classList.add('winner');
+        else if(ms.w!=null) row.classList.add('loser');
+
+        const num=document.createElement('span');
+        num.className='pnum';
+        num.textContent=r===0?(m*2+pi+1):'';
+
+        const name=document.createElement('span');
+        name.className='pname';
+        if(!pname){
+          name.textContent='TBD';
+          name.classList.add('tbd');
+        } else {
+          name.textContent=pname;
+          if(r===0){
+            name.contentEditable='true';
+            name.spellcheck=false;
+            name.addEventListener('blur',()=>setName(m*2+pi,name.textContent.trim()));
+            name.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();name.blur();}});
+          }
+        }
+
+        const score=document.createElement('span');
+        score.className='pscore';
+        score.textContent=ms.w===pi?'W':(ms.w!=null?'L':'·');
+        if(pname){
+          score.title='Set as winner';
+          score.addEventListener('click',e=>{e.stopPropagation();toggleWinner(r,m,pi);});
+        }
+
+        row.appendChild(num);
+        row.appendChild(name);
+        row.appendChild(score);
+        card.appendChild(row);
+      });
+
+      mwrap.appendChild(card);
+      mlist.appendChild(mwrap);
+    }
+
+    col.appendChild(mlist);
+    wrap.appendChild(col);
+
+    if(r<N-1){
+      const connCol=document.createElement('div');
+      connCol.className='conn';
+      const pairs=nm/2;
+      for(let c=0;c<pairs;c++){
+        const pair=document.createElement('div');
+        pair.className='conn-pair';
+        const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
+        svg.setAttribute('viewBox','0 0 28 80');
+        svg.setAttribute('preserveAspectRatio','none');
+        svg.style.cssText='width:28px;flex:1;height:100%;overflow:visible;';
+        const path=document.createElementNS('http://www.w3.org/2000/svg','path');
+        path.setAttribute('d','M0 20 H14 M0 60 H14 M14 20 V60 M14 40 H28');
+        path.setAttribute('stroke','#ddd');
+        path.setAttribute('stroke-width','1.5');
+        path.setAttribute('fill','none');
+        svg.appendChild(path);
+        pair.appendChild(svg);
+        connCol.appendChild(pair);
+      }
+      wrap.appendChild(connCol);
+    }
+  }
+
+  // champion
+  const champCol=document.createElement('div');
+  champCol.className='champ-col';
+  const cl=document.createElement('div');
+  cl.className='champ-label';
+  cl.textContent='Champion';
+  champCol.appendChild(cl);
+  const cb=document.createElement('div');
+  cb.className='champ-body';
+  const cc=document.createElement('div');
+  cc.className='champ-card';
+  const fin=winner(3,0);
+  cc.innerHTML=`<div class="trophy">🏆</div><div class="${fin?'cname':'ctbd'}">${fin||'TBD'}</div><div class="cprize">${fin?'R$ 2,000':''}</div>`;
+  cb.appendChild(cc);
+  champCol.appendChild(cb);
+  wrap.appendChild(champCol);
+}
+
+load();
+render();
+</script>
+</body>
+</html>

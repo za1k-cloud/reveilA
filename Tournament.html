@@ -3,21 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kuba's Tournament</title>
+<title>ReveilA Tournament</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@500&display=swap" rel="stylesheet">
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
-  background: #f5f2ed;
+  background: #111;
   font-family: 'DM Sans', sans-serif;
   min-height: 100vh;
   overflow-x: auto;
+  color: #fff;
 }
 
 header {
   padding: 48px 40px 36px;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #2a2a2a;
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
@@ -29,19 +30,19 @@ header {
   font-size: 36px;
   font-weight: 700;
   letter-spacing: -1px;
-  color: #111;
+  color: #fff;
   line-height: 1;
 }
 .header-left p {
   font-size: 14px;
-  color: #888;
+  color: #555;
   margin-top: 6px;
   font-family: 'DM Mono', monospace;
 }
 
 .prize {
-  background: #111;
-  color: #f5f2ed;
+  background: #fff;
+  color: #111;
   padding: 10px 20px;
   border-radius: 4px;
   font-family: 'DM Mono', monospace;
@@ -67,7 +68,7 @@ header {
   font-size: 10px;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: #aaa;
+  color: #444;
   padding: 0 12px 16px;
 }
 
@@ -86,8 +87,8 @@ header {
 }
 
 .match {
-  background: #fff;
-  border: 1px solid #e0ddd8;
+  background: #1a1a1a;
+  border: 1px solid #2a2a2a;
   border-radius: 6px;
   width: 180px;
   overflow: hidden;
@@ -98,22 +99,22 @@ header {
   align-items: center;
   padding: 9px 12px;
   gap: 8px;
-  border-bottom: 1px solid #f0ede8;
+  border-bottom: 1px solid #222;
   user-select: none;
 }
 .player:last-child { border-bottom: none; }
 
-.player.winner { background: #f0faf4; }
-.player.winner .pname { color: #111; font-weight: 700; }
+.player.winner { background: #1a2a1a; }
+.player.winner .pname { color: #fff; font-weight: 700; }
 .player.winner .pscore { color: #22a855; font-weight: 700; }
 
-.player.loser { opacity: 0.35; }
+.player.loser { opacity: 0.3; }
 .player.loser .pname { text-decoration: line-through; }
 
 .pnum {
   font-family: 'DM Mono', monospace;
   font-size: 10px;
-  color: #ccc;
+  color: #444;
   width: 14px;
   flex-shrink: 0;
 }
@@ -121,24 +122,19 @@ header {
 .pname {
   font-size: 14px;
   font-weight: 500;
-  color: #333;
+  color: #ccc;
   flex: 1;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   outline: none;
 }
-.pname[contenteditable="true"] {
-  cursor: text;
-  border-bottom: 1px dashed #ccc;
-}
-.pname[contenteditable="true"]:focus { color: #111; border-bottom-color: #22a855; }
-.pname.tbd { color: #bbb; font-style: italic; font-weight: 400; font-size: 12px; }
+.pname.tbd { color: #444; font-style: italic; font-weight: 400; font-size: 12px; }
 
 .pscore {
   font-family: 'DM Mono', monospace;
   font-size: 12px;
-  color: #ccc;
+  color: #444;
   width: 18px;
   text-align: center;
   cursor: pointer;
@@ -146,7 +142,7 @@ header {
   padding: 2px;
   transition: background 0.1s;
 }
-.pscore:hover { background: #f0ede8; color: #888; }
+.pscore:hover { background: #2a2a2a; color: #888; }
 
 .conn {
   width: 28px;
@@ -176,7 +172,7 @@ header {
   font-size: 10px;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: #aaa;
+  color: #444;
   padding: 0 12px 16px;
 }
 .champ-body {
@@ -186,29 +182,24 @@ header {
   padding: 8px 12px;
 }
 .champ-card {
-  border: 1.5px solid #111;
+  border: 1.5px solid #fff;
   border-radius: 6px;
   padding: 20px 24px;
   text-align: center;
   width: 160px;
 }
 .champ-card .trophy { font-size: 28px; margin-bottom: 10px; }
-.champ-card .cname { font-size: 16px; font-weight: 700; color: #111; margin-bottom: 4px; }
+.champ-card .cname { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 4px; }
 .champ-card .cprize { font-family: 'DM Mono', monospace; font-size: 12px; color: #22a855; }
-.champ-card .ctbd { font-size: 13px; color: #bbb; font-style: italic; }
+.champ-card .ctbd { font-size: 13px; color: #444; font-style: italic; }
 
 footer {
   padding: 24px 40px;
-  border-top: 1px solid #ddd;
+  border-top: 1px solid #2a2a2a;
   font-family: 'DM Mono', monospace;
   font-size: 11px;
-  color: #bbb;
+  color: #333;
   letter-spacing: 1px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 10px;
 }
 </style>
 </head>
@@ -216,7 +207,7 @@ footer {
 
 <header>
   <div class="header-left">
-    <h1>Kuba's Tournament</h1>
+    <h1>ReveilA Tournament</h1>
     <p>16 players · 4 rounds · hosted by kuba</p>
   </div>
   <div class="prize">R$ 2,000 ROBUX</div>
@@ -224,10 +215,7 @@ footer {
 
 <div id="bracket" class="bracket-wrap"></div>
 
-<footer>
-  <span>kuba's tournament</span>
-  <span>click names to edit · click score to set winner</span>
-</footer>
+<footer>reveil<span style="color:#555">a</span> tournament</footer>
 
 <script>
 const DEFAULTS = Array.from({length:16}, (_,i) => `Player ${i+1}`);
@@ -252,11 +240,6 @@ function toggleWinner(r,m,pi){
   const id = mid(r,m);
   if(!state.matches[id]) state.matches[id]={w:null};
   state.matches[id].w = state.matches[id].w===pi ? null : pi;
-  save(); render();
-}
-
-function setName(i,val){
-  state.players[i] = val||DEFAULTS[i];
   save(); render();
 }
 
@@ -308,12 +291,6 @@ function render(){
           name.classList.add('tbd');
         } else {
           name.textContent=pname;
-          if(r===0){
-            name.contentEditable='true';
-            name.spellcheck=false;
-            name.addEventListener('blur',()=>setName(m*2+pi,name.textContent.trim()));
-            name.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();name.blur();}});
-          }
         }
 
         const score=document.createElement('span');
@@ -350,7 +327,7 @@ function render(){
         svg.style.cssText='width:28px;flex:1;height:100%;overflow:visible;';
         const path=document.createElementNS('http://www.w3.org/2000/svg','path');
         path.setAttribute('d','M0 20 H14 M0 60 H14 M14 20 V60 M14 40 H28');
-        path.setAttribute('stroke','#ddd');
+        path.setAttribute('stroke','#333');
         path.setAttribute('stroke-width','1.5');
         path.setAttribute('fill','none');
         svg.appendChild(path);
@@ -361,7 +338,6 @@ function render(){
     }
   }
 
-  // champion
   const champCol=document.createElement('div');
   champCol.className='champ-col';
   const cl=document.createElement('div');

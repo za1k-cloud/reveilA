@@ -9,49 +9,64 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
-  background: #111;
   font-family: 'DM Sans', sans-serif;
   min-height: 100vh;
   overflow-x: auto;
+  overflow-y: hidden;
   color: #fff;
+  background: #111 url('https://raw.githubusercontent.com/ccursedd/bg/refs/heads/main/0215.gif') center center / cover no-repeat fixed;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  pointer-events: none;
+  z-index: 0;
+}
+
+header, .bracket-wrap, footer {
+  position: relative;
+  z-index: 1;
 }
 
 header {
-  padding: 48px 40px 36px;
+  padding: 18px 32px 14px;
   border-bottom: 1px solid #2a2a2a;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 16px;
+  gap: 10px;
 }
 
 .header-left h1 {
-  font-size: 36px;
+  font-size: 22px;
   font-weight: 700;
-  letter-spacing: -1px;
+  letter-spacing: -0.5px;
   color: #fff;
   line-height: 1;
 }
 .header-left p {
-  font-size: 14px;
-  color: #555;
-  margin-top: 6px;
+  font-size: 11px;
+  color: #666;
+  margin-top: 3px;
   font-family: 'DM Mono', monospace;
 }
 
 .prize {
   background: #fff;
   color: #111;
-  padding: 10px 20px;
+  padding: 6px 14px;
   border-radius: 4px;
   font-family: 'DM Mono', monospace;
-  font-size: 15px;
+  font-size: 12px;
   font-weight: 500;
 }
 
 .bracket-wrap {
-  padding: 40px;
+  padding: 16px 24px 12px;
   display: flex;
   align-items: flex-start;
   gap: 0;
@@ -65,11 +80,11 @@ header {
 
 .round-label {
   font-family: 'DM Mono', monospace;
-  font-size: 10px;
+  font-size: 9px;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: #444;
-  padding: 0 12px 16px;
+  color: #555;
+  padding: 0 10px 8px;
 }
 
 .matches {
@@ -83,28 +98,29 @@ header {
   flex: 1;
   display: flex;
   align-items: center;
-  padding: 8px 12px;
+  padding: 4px 10px;
 }
 
 .match {
-  background: #1a1a1a;
+  background: rgba(20,20,20,0.85);
   border: 1px solid #2a2a2a;
-  border-radius: 6px;
-  width: 180px;
+  border-radius: 5px;
+  width: 160px;
   overflow: hidden;
+  backdrop-filter: blur(4px);
 }
 
 .player {
   display: flex;
   align-items: center;
-  padding: 9px 12px;
-  gap: 8px;
+  padding: 6px 10px;
+  gap: 6px;
   border-bottom: 1px solid #222;
   user-select: none;
 }
 .player:last-child { border-bottom: none; }
 
-.player.winner { background: #1a2a1a; }
+.player.winner { background: rgba(34,168,85,0.12); }
 .player.winner .pname { color: #fff; font-weight: 700; }
 .player.winner .pscore { color: #22a855; font-weight: 700; }
 
@@ -113,14 +129,14 @@ header {
 
 .pnum {
   font-family: 'DM Mono', monospace;
-  font-size: 10px;
+  font-size: 9px;
   color: #444;
-  width: 14px;
+  width: 12px;
   flex-shrink: 0;
 }
 
 .pname {
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 500;
   color: #ccc;
   flex: 1;
@@ -129,26 +145,26 @@ header {
   text-overflow: ellipsis;
   outline: none;
 }
-.pname.tbd { color: #444; font-style: italic; font-weight: 400; font-size: 12px; }
+.pname.tbd { color: #444; font-style: italic; font-weight: 400; font-size: 11px; }
 
 .pscore {
   font-family: 'DM Mono', monospace;
-  font-size: 12px;
+  font-size: 11px;
   color: #444;
-  width: 18px;
+  width: 16px;
   text-align: center;
   cursor: pointer;
   border-radius: 3px;
-  padding: 2px;
+  padding: 1px;
   transition: background 0.1s;
 }
 .pscore:hover { background: #2a2a2a; color: #888; }
 
 .conn {
-  width: 28px;
+  width: 24px;
   display: flex;
   flex-direction: column;
-  padding-top: 31px;
+  padding-top: 26px;
 }
 .conn-pair {
   flex: 1;
@@ -156,7 +172,7 @@ header {
   align-items: center;
 }
 .conn-pair svg {
-  width: 28px;
+  width: 24px;
   flex: 1;
   height: 100%;
   overflow: visible;
@@ -165,39 +181,41 @@ header {
 .champ-col {
   display: flex;
   flex-direction: column;
-  min-width: 200px;
+  min-width: 180px;
 }
 .champ-label {
   font-family: 'DM Mono', monospace;
-  font-size: 10px;
+  font-size: 9px;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: #444;
-  padding: 0 12px 16px;
+  color: #555;
+  padding: 0 10px 8px;
 }
 .champ-body {
   flex: 1;
   display: flex;
   align-items: center;
-  padding: 8px 12px;
+  padding: 4px 10px;
 }
 .champ-card {
   border: 1.5px solid #fff;
-  border-radius: 6px;
-  padding: 20px 24px;
+  border-radius: 5px;
+  padding: 14px 18px;
   text-align: center;
-  width: 160px;
+  width: 140px;
+  background: rgba(20,20,20,0.85);
+  backdrop-filter: blur(4px);
 }
-.champ-card .trophy { font-size: 28px; margin-bottom: 10px; }
-.champ-card .cname { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 4px; }
-.champ-card .cprize { font-family: 'DM Mono', monospace; font-size: 12px; color: #22a855; }
-.champ-card .ctbd { font-size: 13px; color: #444; font-style: italic; }
+.champ-card .trophy { font-size: 20px; margin-bottom: 6px; }
+.champ-card .cname { font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 3px; }
+.champ-card .cprize { font-family: 'DM Mono', monospace; font-size: 11px; color: #22a855; }
+.champ-card .ctbd { font-size: 12px; color: #444; font-style: italic; }
 
 footer {
-  padding: 24px 40px;
+  padding: 10px 32px;
   border-top: 1px solid #2a2a2a;
   font-family: 'DM Mono', monospace;
-  font-size: 11px;
+  font-size: 10px;
   color: #333;
   letter-spacing: 1px;
 }
@@ -215,7 +233,7 @@ footer {
 
 <div id="bracket" class="bracket-wrap"></div>
 
-<footer>reveil<span style="color:#555">a</span> tournament</footer>
+<footer>reveila tournament</footer>
 
 <script>
 const DEFAULTS = Array.from({length:16}, (_,i) => `Player ${i+1}`);
@@ -322,11 +340,11 @@ function render(){
         const pair=document.createElement('div');
         pair.className='conn-pair';
         const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
-        svg.setAttribute('viewBox','0 0 28 80');
+        svg.setAttribute('viewBox','0 0 24 80');
         svg.setAttribute('preserveAspectRatio','none');
-        svg.style.cssText='width:28px;flex:1;height:100%;overflow:visible;';
+        svg.style.cssText='width:24px;flex:1;height:100%;overflow:visible;';
         const path=document.createElementNS('http://www.w3.org/2000/svg','path');
-        path.setAttribute('d','M0 20 H14 M0 60 H14 M14 20 V60 M14 40 H28');
+        path.setAttribute('d','M0 20 H12 M0 60 H12 M12 20 V60 M12 40 H24');
         path.setAttribute('stroke','#333');
         path.setAttribute('stroke-width','1.5');
         path.setAttribute('fill','none');
@@ -349,7 +367,7 @@ function render(){
   const cc=document.createElement('div');
   cc.className='champ-card';
   const fin=winner(3,0);
-  cc.innerHTML=`<div class="trophy">🏆</div><div class="${fin?'cname':'ctbd'}">${fin||'TBD'}</div><div class="cprize">${fin?'R$ 2,000':''}</div>`;
+  cc.innerHTML=`<div class="trophy">&#x1F3C6;</div><div class="${fin?'cname':'ctbd'}">${fin||'TBD'}</div><div class="cprize">${fin?'R$ 2,000':''}</div>`;
   cb.appendChild(cc);
   champCol.appendChild(cb);
   wrap.appendChild(champCol);

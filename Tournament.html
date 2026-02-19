@@ -34,40 +34,76 @@ header {
   flex-wrap: wrap;
   gap: 10px;
 }
-.header-left h1 { font-size: 22px; font-weight: 700; letter-spacing: -0.5px; color: #fff; line-height: 1; }
-.header-left p { font-size: 11px; color: #888; margin-top: 3px; font-family: 'DM Mono', monospace; }
+.header-left h1 { font-size: 22px; font-weight: 700; letter-spacing: -0.5px; line-height: 1; }
+.header-left p  { font-size: 11px; color: #888; margin-top: 3px; font-family: 'DM Mono', monospace; }
 .prize { background: #fff; color: #111; padding: 6px 14px; border-radius: 4px; font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 500; }
-.bracket-wrap { padding: 16px 24px 12px; display: flex; align-items: flex-start; gap: 0; min-width: max-content; }
+
+.bracket-wrap {
+  padding: 16px 24px 24px;
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+  min-width: max-content;
+}
+
 .round { display: flex; flex-direction: column; }
-.round-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: #777; padding: 0 10px 8px; }
-.matches { display: flex; flex-direction: column; flex: 1; justify-content: space-around; }
-.match-wrap { flex: 1; display: flex; align-items: center; padding: 4px 10px; }
-.match { background: rgba(30,30,30,0.92); border: 1px solid #404040; border-radius: 5px; width: 160px; overflow: hidden; backdrop-filter: blur(6px); }
-.player { display: flex; align-items: center; padding: 7px 10px; gap: 6px; border-bottom: 1px solid #333; }
+.round-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #666;
+  padding: 0 10px 8px;
+}
+.matches { display: flex; flex-direction: column; justify-content: space-around; }
+.match-wrap { flex: 1; display: flex; align-items: center; padding: 5px 10px; }
+
+.match {
+  background: rgba(26,26,26,0.95);
+  border: 1px solid #383838;
+  border-radius: 6px;
+  width: 172px;
+  overflow: hidden;
+  backdrop-filter: blur(8px);
+}
+
+.player { display: flex; align-items: center; padding: 7px 10px; gap: 7px; border-bottom: 1px solid #2b2b2b; }
 .player:last-child { border-bottom: none; }
-.player.winner { background: rgba(34,168,85,0.15); }
+
+.player.winner { background: rgba(34,168,85,0.13); }
 .player.winner .pname { color: #fff; font-weight: 700; }
-.player.loser { background: rgba(180,40,40,0.13); }
-.player.loser .pname { color: #c0392b; text-decoration: line-through; opacity: 0.7; }
-.pnum { font-family: 'DM Mono', monospace; font-size: 9px; color: #666; width: 12px; flex-shrink: 0; }
-.pname { font-size: 13px; font-weight: 500; color: #e0e0e0; flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.pname.tbd { color: #555; font-style: italic; font-weight: 400; font-size: 11px; }
-.pbadge { font-family: 'DM Mono', monospace; font-size: 10px; width: 16px; text-align: center; }
+.player.loser  { background: rgba(175,32,32,0.15); }
+.player.loser  .pname { color: #b03030; text-decoration: line-through; opacity: 0.6; }
+
+.pnum  { font-family: 'DM Mono', monospace; font-size: 9px; color: #555; width: 14px; flex-shrink: 0; text-align: right; }
+.pname { font-size: 12px; font-weight: 500; color: #ddd; flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pname.tbd { color: #444; font-style: italic; font-weight: 400; font-size: 11px; }
+.pbadge { font-family: 'DM Mono', monospace; font-size: 10px; width: 14px; text-align: center; flex-shrink: 0; }
 .player.winner .pbadge { color: #22a855; }
-.player.loser .pbadge { color: #c0392b; }
-.player.pending .pbadge { color: #444; }
-.conn { width: 24px; display: flex; flex-direction: column; padding-top: 26px; }
+.player.loser  .pbadge { color: #b03030; }
+.player:not(.winner):not(.loser) .pbadge { color: #2e2e2e; }
+
+.conn { width: 24px; display: flex; flex-direction: column; padding-top: 26px; flex-shrink: 0; }
 .conn-pair { flex: 1; display: flex; align-items: center; }
-.conn-pair svg { width: 24px; flex: 1; height: 100%; overflow: visible; }
-.champ-col { display: flex; flex-direction: column; min-width: 180px; }
-.champ-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: #777; padding: 0 10px 8px; }
-.champ-body { flex: 1; display: flex; align-items: center; padding: 4px 10px; }
-.champ-card { border: 1.5px solid #ddd; border-radius: 5px; padding: 14px 18px; text-align: center; width: 140px; background: rgba(25,25,25,0.92); backdrop-filter: blur(6px); }
-.champ-card .champ-icon { display: flex; justify-content: center; margin-bottom: 8px; }
-.champ-card .cname { font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 3px; }
-.champ-card .cprize { font-family: 'DM Mono', monospace; font-size: 11px; color: #22a855; }
-.champ-card .ctbd { font-size: 12px; color: #555; font-style: italic; }
-footer { padding: 10px 32px; border-top: 1px solid #3a3a3a; font-family: 'DM Mono', monospace; font-size: 10px; color: #555; letter-spacing: 1px; }
+
+.champ-col   { display: flex; flex-direction: column; }
+.champ-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: #666; padding: 0 10px 8px; }
+.champ-body  { flex: 1; display: flex; align-items: center; padding: 5px 10px; }
+.champ-card  {
+  border: 1.5px solid #ccc;
+  border-radius: 6px;
+  padding: 16px 18px;
+  text-align: center;
+  width: 148px;
+  background: rgba(20,20,20,0.95);
+  backdrop-filter: blur(8px);
+}
+.champ-icon { display: flex; justify-content: center; margin-bottom: 9px; }
+.cname  { font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 3px; }
+.cprize { font-family: 'DM Mono', monospace; font-size: 11px; color: #22a855; }
+.ctbd   { font-size: 12px; color: #444; font-style: italic; }
+
+footer { padding: 10px 32px; border-top: 1px solid #2b2b2b; font-family: 'DM Mono', monospace; font-size: 10px; color: #444; letter-spacing: 1px; }
 </style>
 </head>
 <body>
@@ -75,7 +111,7 @@ footer { padding: 10px 32px; border-top: 1px solid #3a3a3a; font-family: 'DM Mon
 <header>
   <div class="header-left">
     <h1>ReveilA Tournament</h1>
-    <p>16 players · 4 rounds · hosted by kuba</p>
+    <p>10 players · 4 rounds · hosted by kuba</p>
   </div>
   <div class="prize">R$ 2,000 ROBUX</div>
 </header>
@@ -84,49 +120,49 @@ footer { padding: 10px 32px; border-top: 1px solid #3a3a3a; font-family: 'DM Mon
 <footer>reveila tournament</footer>
 
 <script>
-// ============================================================
-//  EDIT HERE — ADD PLAYER NAMES (16 total, in match order)
-//  Slot 1 vs Slot 2 = Match 1, Slot 3 vs Slot 4 = Match 2, etc.
-// ============================================================
-const PLAYERS = [
-  "Player 1",  "Player 2",   // DIV 1 · Match 1
-  "Player 3",  "Player 4",   // DIV 1 · Match 2
-  "Player 5",  "Player 6",   // DIV 1 · Match 3
-  "Player 7",  "Player 8",   // DIV 1 · Match 4
-  "Player 9",  "Player 10",  // DIV 1 · Match 5
-  "Player 11", "Player 12",  // DIV 1 · Match 6
-  "Player 13", "Player 14",  // DIV 1 · Match 7
-  "Player 15", "Player 16",  // DIV 1 · Match 8
+// ================================================================
+//  HOW IT WORKS:
+//  Just type names. The bracket automatically compares each round
+//  to the next one. If a player's name appears in the next round
+//  → they won (green). If they don't appear → they lost (red).
+//  You never need to type "win", "lose", or "null" — ever.
+// ================================================================
+
+// ── DIV 1 · Round of 10 ─────────────────────────────────────────
+// 5 matches, each with a top and bottom player
+const DIV1 = [
+  // [ "top player",  "bottom player" ]
+  [ "harvester",              "star"                    ],  // Match 1
+  [ "apxloo",                 "mars(aka ...)"            ],  // Match 2
+  [ "trex",                   "aaries"                  ],  // Match 3
+  [ "za1k",                   "toshiro"                 ],  // Match 4
+  [ "kazu",                   "05ax(no idea who ts is)" ],  // Match 5
 ];
 
-// ============================================================
-//  RESULTS — set who won each match
-//
-//  "win"  → top/first player WON  (other goes red)
-//  "lose" → top/first player LOST (bottom player wins)
-//  null   → match not played yet
-//
-//  DIV 1 = Round of 16  (8 matches)
-//  DIV 2 = Quarterfinals (4 matches)
-//  DIV 3 = Semifinals    (2 matches)
-//  DIV 4 = Final         (1 match)
-// ============================================================
-const RESULTS = [
-  // DIV 1 · Round of 16 (8 matches, top-to-bottom)
-  [ null, null, null, null, null, null, null, null ],
-
-  // DIV 2 · Quarterfinals (4 matches)
-  [ null, null, null, null ],
-
-  // DIV 3 · Semifinals (2 matches)
-  [ null, null ],
-
-  // DIV 4 · Final (1 match)
-  [ null ],
+// ── DIV 2 · Round of 5 winners ───────────────────────────────────
+// 5 winners from DIV 1 → 2 matches (4 players) + 1 bye (just one name, other blank)
+// The player with a blank opponent gets a FREE WIN automatically shown in green.
+const DIV2 = [
+  [ "",  "" ],  // Match 1
+  [ "",  "" ],  // Match 2
+  [ "",  "" ],  // Match 3 ← one name here, leave other blank = BYE (auto green)
 ];
-// ============================================================
 
-const TROPHY_SVG = `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+// ── DIV 3 · Semifinals ───────────────────────────────────────────
+// 3 advance from DIV 2 → 1 match + 1 bye again
+const DIV3 = [
+  [ "",  "" ],  // Match 1
+  [ "",  "" ],  // Match 2 ← one name + blank = BYE if needed
+];
+
+// ── DIV 4 · Final ────────────────────────────────────────────────
+const DIV4 = [
+  [ "",  "" ],  // Final
+];
+
+// ================================================================
+
+const TROPHY = `<svg width="28" height="28" viewBox="0 0 24 24" fill="none">
   <path d="M6 2h12v8a6 6 0 0 1-12 0V2Z" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/>
   <path d="M6 5H3a1 1 0 0 0-1 1v1a4 4 0 0 0 4 4" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
   <path d="M18 5h3a1 1 0 0 1 1 1v1a4 4 0 0 1-4 4" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
@@ -135,116 +171,151 @@ const TROPHY_SVG = `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" 
   <path d="M9.5 16a2.5 2.5 0 0 0 5 0" stroke="#fff" stroke-width="1.5"/>
 </svg>`;
 
-const ROUND_LABELS = ["Round of 16","Quarterfinals","Semifinals","Final"];
-
-function mid(r, m) { return `r${r}m${m}`; }
-
-function getPlayers(r, m) {
-  if (r === 0) return [PLAYERS[m * 2], PLAYERS[m * 2 + 1]];
-  return [getWinner(r - 1, m * 2), getWinner(r - 1, m * 2 + 1)];
+// Collect every name that appears in a given round (flat, lowercase for comparison)
+function allNames(round) {
+  const set = new Set();
+  round.forEach(match => match.forEach(n => { if (n.trim()) set.add(n.trim().toLowerCase()); }));
+  return set;
 }
 
-function getWinner(r, m) {
-  const res = RESULTS[r] ? RESULTS[r][m] : null;
-  const [p0, p1] = getPlayers(r, m);
-  if (res === "win")  return p0;
-  if (res === "lose") return p1;
-  return null;
+// Does this name appear in the next round?
+function appearsIn(name, nextRound) {
+  if (!name.trim()) return false;
+  const pool = allNames(nextRound);
+  return pool.has(name.trim().toLowerCase());
+}
+
+// Is the next round completely empty (no names filled in yet)?
+function roundEmpty(round) {
+  return round.every(match => match.every(n => !n.trim()));
+}
+
+function buildMatchEl(topName, botName, nextRound, showNums, numOffset) {
+  const tFilled = topName.trim(), bFilled = botName.trim();
+  const nextEmpty = roundEmpty(nextRound);
+
+  let topState = '', botState = '';
+
+  // BYE: one slot filled, other empty → filled player auto-wins
+  if (tFilled && !bFilled) { topState = 'winner'; botState = ''; }
+  else if (bFilled && !tFilled) { botState = 'winner'; topState = ''; }
+  else if (!nextEmpty) {
+    // Both filled — check who appears in the next round
+    const topIn = appearsIn(topName, nextRound);
+    const botIn = appearsIn(botName, nextRound);
+    if (topIn && !botIn && tFilled) { topState = 'winner'; botState = 'loser'; }
+    if (botIn && !topIn && bFilled) { botState = 'winner'; topState = 'loser'; }
+    if (topIn && botIn) { topState = 'winner'; botState = 'winner'; }
+  }
+
+  const card = document.createElement('div');
+  card.className = 'match';
+
+  [[topName, topState, showNums ? numOffset     : ''],
+   [botName, botState, showNums ? numOffset + 1 : '']].forEach(([name, state, num]) => {
+    const row = document.createElement('div');
+    row.className = 'player' + (state ? ' ' + state : '');
+
+    const pnum = document.createElement('span');
+    pnum.className = 'pnum';
+    pnum.textContent = num;
+
+    const pname = document.createElement('span');
+    pname.className = 'pname' + (name.trim() ? '' : ' tbd');
+    pname.textContent = name.trim() || 'TBD';
+
+    const badge = document.createElement('span');
+    badge.className = 'pbadge';
+    badge.textContent = state === 'winner' ? 'W' : state === 'loser' ? 'L' : '·';
+
+    row.append(pnum, pname, badge);
+    card.appendChild(row);
+  });
+
+  return card;
+}
+
+function buildRound(matches, label, nextRound, H, showNums) {
+  const col = document.createElement('div');
+  col.className = 'round';
+
+  const lbl = document.createElement('div');
+  lbl.className = 'round-label';
+  lbl.textContent = label;
+  col.appendChild(lbl);
+
+  const list = document.createElement('div');
+  list.className = 'matches';
+  list.style.height = H + 'px';
+
+  matches.forEach(([top, bot], i) => {
+    const wrap = document.createElement('div');
+    wrap.className = 'match-wrap';
+    wrap.appendChild(buildMatchEl(top, bot, nextRound, showNums, i * 2 + 1));
+    list.appendChild(wrap);
+  });
+
+  col.appendChild(list);
+  return col;
+}
+
+function buildConn(pairs, H) {
+  const col = document.createElement('div');
+  col.className = 'conn';
+  col.style.height = H + 'px';
+  for (let i = 0; i < pairs; i++) {
+    const pair = document.createElement('div');
+    pair.className = 'conn-pair';
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('viewBox', '0 0 24 80');
+    svg.setAttribute('preserveAspectRatio', 'none');
+    svg.style.cssText = 'width:24px;flex:1;height:100%;overflow:visible;';
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path.setAttribute('d', 'M0 20 H12 M0 60 H12 M12 20 V60 M12 40 H24');
+    path.setAttribute('stroke', '#383838');
+    path.setAttribute('stroke-width', '1.5');
+    path.setAttribute('fill', 'none');
+    svg.appendChild(path);
+    pair.appendChild(svg);
+    col.appendChild(pair);
+  }
+  return col;
 }
 
 function render() {
   const wrap = document.getElementById('bracket');
   wrap.innerHTML = '';
-  const N = 4;
 
-  for (let r = 0; r < N; r++) {
-    const nm = 16 / Math.pow(2, r + 1);
-    const col = document.createElement('div');
-    col.className = 'round';
+  const ROW_H = 80;
+  const H1 = DIV1.length * ROW_H;
+  const H2 = Math.max(DIV2.length, 1) * ROW_H;
+  const H3 = DIV3.length * ROW_H;
+  const H4 = DIV4.length * ROW_H;
 
-    const lbl = document.createElement('div');
-    lbl.className = 'round-label';
-    lbl.textContent = ROUND_LABELS[r];
-    col.appendChild(lbl);
+  // DIV 1 — next round to compare against is DIV 2
+  wrap.appendChild(buildRound(DIV1, 'DIV 1 · Round of 10', DIV2, H1, true));
+  wrap.appendChild(buildConn(Math.ceil(DIV2.length / 2), H1));
 
-    const mlist = document.createElement('div');
-    mlist.className = 'matches';
+  // DIV 2
+  wrap.appendChild(buildRound(DIV2, 'DIV 2 · Round of 5', DIV3, H2, false));
+  wrap.appendChild(buildConn(Math.ceil(DIV3.length / 2), H2));
 
-    for (let m = 0; m < nm; m++) {
-      const res = RESULTS[r] ? RESULTS[r][m] : null;
-      const [p0, p1] = getPlayers(r, m);
+  // DIV 3
+  wrap.appendChild(buildRound(DIV3, 'DIV 3 · Semifinals', DIV4, H3, false));
+  wrap.appendChild(buildConn(1, H3));
 
-      // Determine win states
-      // res "win" → p0 wins, "lose" → p1 wins
-      const p0wins = res === "win";
-      const p1wins = res === "lose";
+  // DIV 4 — final: winner is whoever appears in neither next round (there is none),
+  // so we use a sentinel empty round and just check who won vs who lost
+  // For DIV 4, the winner is whoever appears as champion (we just mark both as pending
+  // unless one name is blank — then the filled one is the winner)
+  // For DIV4: if one slot blank → that's a bye, filled player is champion
+  const finTop = DIV4[0][0].trim(), finBot = DIV4[0][1].trim();
+  let finWinner = null;
+  if (finTop && !finBot) finWinner = finTop;
+  else if (finBot && !finTop) finWinner = finBot;
 
-      const mwrap = document.createElement('div');
-      mwrap.className = 'match-wrap';
-      const card = document.createElement('div');
-      card.className = 'match';
-
-      [[p0, p0wins, p1wins, r === 0 ? m * 2 + 1 : ''],
-       [p1, p1wins, p0wins, r === 0 ? m * 2 + 2 : '']].forEach(([pname, isWinner, isLoser, num]) => {
-        const row = document.createElement('div');
-        row.className = 'player';
-        if (isWinner) row.classList.add('winner');
-        else if (isLoser) row.classList.add('loser');
-        else row.classList.add('pending');
-
-        const pnum = document.createElement('span');
-        pnum.className = 'pnum';
-        pnum.textContent = num;
-
-        const name = document.createElement('span');
-        name.className = 'pname';
-        if (!pname) {
-          name.textContent = 'TBD';
-          name.classList.add('tbd');
-        } else {
-          name.textContent = pname;
-        }
-
-        const badge = document.createElement('span');
-        badge.className = 'pbadge';
-        badge.textContent = isWinner ? 'W' : isLoser ? 'L' : '·';
-
-        row.appendChild(pnum);
-        row.appendChild(name);
-        row.appendChild(badge);
-        card.appendChild(row);
-      });
-
-      mwrap.appendChild(card);
-      mlist.appendChild(mwrap);
-    }
-
-    col.appendChild(mlist);
-    wrap.appendChild(col);
-
-    if (r < N - 1) {
-      const connCol = document.createElement('div');
-      connCol.className = 'conn';
-      const pairs = nm / 2;
-      for (let c = 0; c < pairs; c++) {
-        const pair = document.createElement('div');
-        pair.className = 'conn-pair';
-        const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-        svg.setAttribute('viewBox', '0 0 24 80');
-        svg.setAttribute('preserveAspectRatio', 'none');
-        svg.style.cssText = 'width:24px;flex:1;height:100%;overflow:visible;';
-        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-        path.setAttribute('d', 'M0 20 H12 M0 60 H12 M12 20 V60 M12 40 H24');
-        path.setAttribute('stroke', '#444');
-        path.setAttribute('stroke-width', '1.5');
-        path.setAttribute('fill', 'none');
-        svg.appendChild(path);
-        pair.appendChild(svg);
-        connCol.appendChild(pair);
-      }
-      wrap.appendChild(connCol);
-    }
-  }
+  const CHAMP_SENTINEL = finWinner ? [[finWinner, '']] : [];
+  wrap.appendChild(buildRound(DIV4, 'DIV 4 · Final', CHAMP_SENTINEL, H4, false));
 
   const champCol = document.createElement('div');
   champCol.className = 'champ-col';
@@ -252,12 +323,15 @@ function render() {
   cl.className = 'champ-label';
   cl.textContent = 'Champion';
   champCol.appendChild(cl);
+
   const cb = document.createElement('div');
   cb.className = 'champ-body';
+  cb.style.height = H4 + 'px';
+
   const cc = document.createElement('div');
   cc.className = 'champ-card';
-  const fin = getWinner(3, 0);
-  cc.innerHTML = `<div class="champ-icon">${TROPHY_SVG}</div><div class="${fin ? 'cname' : 'ctbd'}">${fin || 'TBD'}</div><div class="cprize">${fin ? 'R$ 2,000' : ''}</div>`;
+  cc.innerHTML = `<div class="champ-icon">${TROPHY}</div><div class="${finWinner ? 'cname' : 'ctbd'}">${finWinner || 'TBD'}</div><div class="cprize">${finWinner ? 'R$ 2,000' : ''}</div>`;
+
   cb.appendChild(cc);
   champCol.appendChild(cb);
   wrap.appendChild(champCol);

@@ -111,7 +111,7 @@ footer { padding: 10px 32px; border-top: 1px solid #2b2b2b; font-family: 'DM Mon
 <header>
   <div class="header-left">
     <h1>ReveilA Tournament</h1>
-    <p>10 players · 4 rounds · hosted by Elliot(58av)</p>
+    <p>8 players · 3 rounds · hosted by Elliot(58av)</p>
   </div>
   <div class="prize">R$ 2,000 ROBUX</div>
 </header>
@@ -120,36 +120,23 @@ footer { padding: 10px 32px; border-top: 1px solid #2b2b2b; font-family: 'DM Mon
 <footer>reveila tournament</footer>
 
 <script>
-// ================================================================
-//  HOW IT WORKS:
-//  Just type names. The bracket automatically compares each round
-//  to the next one. If a player's name appears in the next round
-//  → they won (green). If they don't appear → they lost (red).
-//  You never need to type "win", "lose", or "null" — ever.
-// ================================================================
-
-// ── DIV 1 · Round of 10 ─────────────────────────────────────────
-// 5 matches, each with a top and bottom player
+// ── DIV 1 · Round of 8 ──────────────────────────────────────────
 const DIV1 = [
-  // [ "top player",  "bottom player" ]
-  [ "harvester",              "star"                    ],  // Match 1
-  [ "apxloo",                 "mars(aka ...)"            ],  // Match 2
-  [ "trex",                   "loud nigger"                  ],  // Match 3
-  [ "xertzy",                   "05ax(noname)" ],  // Match 5
+  [ "harvester",    "star"          ],  // Match 1
+  [ "apxloo",       "mars(aka ...)" ],  // Match 2
+  [ "trex",         "loud nigger"   ],  // Match 3
+  [ "xertzy",       "05ax(noname)"  ],  // Match 4
 ];
 
-// ── DIV 2 · Round of 5 winners ───────────────────────────────────
-// 5 winners from DIV 1 → 2 matches (4 players) + 1 bye (just one name, other blank)
-// The player with a blank opponent gets a FREE WIN automatically shown in green.
+// ── DIV 2 · Semifinals ───────────────────────────────────────────
 const DIV2 = [
   [ "",  "" ],  // Match 1
   [ "",  "" ],  // Match 2
 ];
 
-// ── DIV 3 · Semifinals ───────────────────────────────────────────
-// 3 advance from DIV 2 → 1 match + 1 bye again
+// ── DIV 3 · Final ────────────────────────────────────────────────
 const DIV3 = [
-  [ "",  "" ],  // Match 1
+  [ "",  "" ],  // Grand Final
 ];
 
 // ================================================================
@@ -163,36 +150,33 @@ const TROPHY = `<svg width="28" height="28" viewBox="0 0 24 24" fill="none">
   <path d="M9.5 16a2.5 2.5 0 0 0 5 0" stroke="#fff" stroke-width="1.5"/>
 </svg>`;
 
-// Collect every name that appears in a given round (flat, lowercase for comparison)
 function allNames(round) {
   const set = new Set();
   round.forEach(match => match.forEach(n => { if (n.trim()) set.add(n.trim().toLowerCase()); }));
   return set;
 }
 
-// Does this name appear in the next round?
 function appearsIn(name, nextRound) {
   if (!name.trim()) return false;
-  const pool = allNames(nextRound);
-  return pool.has(name.trim().toLowerCase());
+  return allNames(nextRound).has(name.trim().toLowerCase());
 }
 
-// Is the next round completely empty (no names filled in yet)?
 function roundEmpty(round) {
   return round.every(match => match.every(n => !n.trim()));
 }
 
-function buildMatchEl(topName, botName, nextRound, showNums, numOffset) {
+function buildMatchEl(topName, botName, nextRound, isFinal, showNums, numOffset) {
   const tFilled = topName.trim(), bFilled = botName.trim();
-  const nextEmpty = roundEmpty(nextRound);
 
   let topState = '', botState = '';
 
-  // BYE: one slot filled, other empty → filled player auto-wins
-  if (tFilled && !bFilled) { topState = 'winner'; botState = ''; }
-  else if (bFilled && !tFilled) { botState = 'winner'; topState = ''; }
-  else if (!nextEmpty) {
-    // Both filled — check who appears in the next round
+  // Bye: one slot empty → filled player auto-wins
+  if (tFilled && !bFilled) { topState = 'winner'; }
+  else if (bFilled && !tFilled) { botState = 'winner'; }
+  else if (isFinal) {
+    // Final round: winner is whoever is filled if other is empty (handled above).
+    // If both filled, stay pending until one is cleared (no next round to compare).
+  } else if (!roundEmpty(nextRound)) {
     const topIn = appearsIn(topName, nextRound);
     const botIn = appearsIn(botName, nextRound);
     if (topIn && !botIn && tFilled) { topState = 'winner'; botState = 'loser'; }
@@ -203,7 +187,7 @@ function buildMatchEl(topName, botName, nextRound, showNums, numOffset) {
   const card = document.createElement('div');
   card.className = 'match';
 
-  [[topName, topState, showNums ? numOffset     : ''],
+  [[topName, topState, showNums ? numOffset : ''],
    [botName, botState, showNums ? numOffset + 1 : '']].forEach(([name, state, num]) => {
     const row = document.createElement('div');
     row.className = 'player' + (state ? ' ' + state : '');
@@ -227,7 +211,7 @@ function buildMatchEl(topName, botName, nextRound, showNums, numOffset) {
   return card;
 }
 
-function buildRound(matches, label, nextRound, H, showNums) {
+function buildRound(matches, label, nextRound, H, showNums, isFinal) {
   const col = document.createElement('div');
   col.className = 'round';
 
@@ -243,7 +227,7 @@ function buildRound(matches, label, nextRound, H, showNums) {
   matches.forEach(([top, bot], i) => {
     const wrap = document.createElement('div');
     wrap.className = 'match-wrap';
-    wrap.appendChild(buildMatchEl(top, bot, nextRound, showNums, i * 2 + 1));
+    wrap.appendChild(buildMatchEl(top, bot, nextRound, isFinal, showNums, i * 2 + 1));
     list.appendChild(wrap);
   });
 
@@ -280,37 +264,29 @@ function render() {
 
   const ROW_H = 80;
   const H1 = DIV1.length * ROW_H;
-  const H2 = Math.max(DIV2.length, 1) * ROW_H;
+  const H2 = DIV2.length * ROW_H;
   const H3 = DIV3.length * ROW_H;
-  const H4 = DIV4.length * ROW_H;
 
-  // DIV 1 — next round to compare against is DIV 2
-  wrap.appendChild(buildRound(DIV1, 'DIV 1 · Round of 10', DIV2, H1, true));
-  wrap.appendChild(buildConn(Math.ceil(DIV2.length / 2), H1));
+  wrap.appendChild(buildRound(DIV1, 'DIV 1 · Round of 8', DIV2, H1, true, false));
+  wrap.appendChild(buildConn(DIV2.length, H1));
 
-  // DIV 2
-  wrap.appendChild(buildRound(DIV2, 'DIV 2 · Round of 5', DIV3, H2, false));
-  wrap.appendChild(buildConn(Math.ceil(DIV3.length / 2), H2));
+  wrap.appendChild(buildRound(DIV2, 'DIV 2 · Semifinals', DIV3, H2, false, false));
+  wrap.appendChild(buildConn(DIV3.length, H2));
 
-  // DIV 3
-  wrap.appendChild(buildRound(DIV3, 'DIV 3 · Semifinals', DIV4, H3, false));
-  wrap.appendChild(buildConn(1, H3));
+  // DIV 3 is the Final — no next round
+  wrap.appendChild(buildRound(DIV3, 'DIV 3 · Final', [], H3, false, true));
 
-  // DIV 4 — final: winner is whoever appears in neither next round (there is none),
-  // so we use a sentinel empty round and just check who won vs who lost
-  // For DIV 4, the winner is whoever appears as champion (we just mark both as pending
-  // unless one name is blank — then the filled one is the winner)
-  // For DIV4: if one slot blank → that's a bye, filled player is champion
-  const finTop = DIV4[0][0].trim(), finBot = DIV4[0][1].trim();
+  // Determine champion from DIV3
+  const finTop = DIV3[0][0].trim();
+  const finBot = DIV3[0][1].trim();
   let finWinner = null;
   if (finTop && !finBot) finWinner = finTop;
   else if (finBot && !finTop) finWinner = finBot;
 
-  const CHAMP_SENTINEL = finWinner ? [[finWinner, '']] : [];
-  wrap.appendChild(buildRound(DIV4, 'DIV 4 · Final', CHAMP_SENTINEL, H4, false));
-
+  // Champion card
   const champCol = document.createElement('div');
   champCol.className = 'champ-col';
+
   const cl = document.createElement('div');
   cl.className = 'champ-label';
   cl.textContent = 'Champion';
@@ -318,7 +294,7 @@ function render() {
 
   const cb = document.createElement('div');
   cb.className = 'champ-body';
-  cb.style.height = H4 + 'px';
+  cb.style.height = H3 + 'px';
 
   const cc = document.createElement('div');
   cc.className = 'champ-card';
